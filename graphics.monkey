@@ -160,7 +160,7 @@ Public
 	' Functions:
 	Function LoadImage:Image(Path:String, FrameCount:Int, Flags:Int=Image.DefaultFlags)
 		' Local variable(s):
-		Local D:= LoadImageDemensions(FixDataPath(Path))
+		Local D:= LoadImageDimensions(FixDataPath(Path))
 		
 		If (D[0] <> 0 And D[1] <> 0) Then
 			' Local variable(s):
