@@ -8,9 +8,7 @@ Public
 #End
 
 #If MOJO_EMULATOR_IMPLEMENTED
-	' Imports:
-	Import imagedemensions
-	
+	' Imports:	
 	Import app
 	Import graphics
 	

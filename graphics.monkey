@@ -5,6 +5,8 @@ Public
 ' Preprocessor related:
 #If MOJO_EMULATOR_IMPLEMENTED
 	' Imports:
+	Import imagedimensions
+	
 	Import mojoemulator
 	Import app
 	
