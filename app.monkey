@@ -6,6 +6,7 @@ Public
 #If MOJO_EMULATOR_IMPLEMENTED
 	' Imports:
 	Import mojoemulator
+	Import external
 	Import graphics
 	
 	' Global variable(s) (Public):
@@ -80,6 +81,21 @@ Public
 	
 	Function EndApp:Void()
 		Error("")
+		
+		Return
+	End
+	
+	Function GetDate:Int[]()
+		' Local variable(s):
+		Local Date:Int[7]
+		
+		GetDate(Date)
+		
+		Return Date
+	End
+	
+	Function GetDate:Void(Date:Int[])
+		external.GetDate(Date)
 		
 		Return
 	End
