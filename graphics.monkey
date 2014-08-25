@@ -56,7 +56,7 @@ Public
 				Self._Flags = Flags
 			End
 			
-			Method New(FrameCount:Int, Flags:Int=Image.DefaultFlags)
+			Method New(FrameCount:Int, Flags:Int)
 				Self._Frames = FrameCount
 				Self._Flags = Flags
 			End
