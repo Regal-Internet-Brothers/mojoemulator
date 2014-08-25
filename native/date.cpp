@@ -24,7 +24,7 @@ void getDate(Array<int> date)
 	date[6] = millisecs();
 	
 	// Delete the temporary time-object.
-	delete now;
+	//delete now;
 	
 	return;
 }

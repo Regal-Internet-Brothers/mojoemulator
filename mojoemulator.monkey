@@ -2,12 +2,14 @@ Strict
 
 Public
 
+' Preprocessor related:
 #MOJO_EMULATOR_FORCE_MOJO = True
 
 #If BRL_GAMETARGET_IMPLEMENTED And MOJO_EMULATOR_FORCE_MOJO
+	#MOJO_EMULATOR_IMPLEMENTED = False
+	
 	Import mojo
 #Else
-	' Preprocessor related:
 	#MOJO_EMULATOR_IMPLEMENTED = True
 	
 	#If MOJO_EMULATOR_IMPLEMENTED
@@ -17,6 +19,7 @@ Public
 		Import external
 		Import app
 		Import graphics
+		Import asyncloaders
 		
 		' Classes:
 		' Nothing so far.
