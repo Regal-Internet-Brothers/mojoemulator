@@ -104,13 +104,14 @@ Public
 				Return Self._HandleY
 			End
 					
-			Method SetHandle:Void(X:Float, Y:Float)
+			Method SetHandle:Int(X:Float, Y:Float)
 				_HandleX = X
 				_HandleY = Y
 				
 				_Flags = _Flags & ~MidHandle
 				
-				Return
+				' Return the default response.
+				Return 0
 			End
 			
 			' Unsupported:
