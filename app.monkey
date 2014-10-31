@@ -9,9 +9,9 @@ Public
 ' The 'EndApp' function still closes ungracefully, regardless of this flag.
 #MOJO_EMULATOR_AUTOEXIT = True
 
-#MOJO_EMULATOR_FORCE_MOJO = True
+#MOJO_EMULATOR_FORCE_MOJO = False ' True
 
-#If BRL_GAMETARGET_IMPLEMENTED And MOJO_EMULATOR_FORCE_MOJO
+#If BRL_GAMETARGET_IMPLEMENTED Or MOJO_EMULATOR_FORCE_MOJO
 	Import mojo.app
 #Else
 	#MOJO_EMULATOR_IMPLEMENTED = True
