@@ -2,29 +2,47 @@
 // Includes:
 #include <ctime>
 
-// year, month (1-12), day (1-31), hours (0-23), minutes (0-59), seconds (0-59) and milliseconds (0-999)
-
 // Functions:
-inline int millisecs();
+// Nothing so far.
 
-void getDate(Array<int> date)
+// Namespace(s):
+namespace mojoemulator
 {
-	// Local variable(s):
-	time_t t = time(0);
+	// Enumerators:
+	enum
+	{
+		DATE_YEAR,
+		DATE_MONTH,
+		DATE_DAY,
+		DATE_HOUR,
+		DATE_MINUTE,
+		DATE_SECOND,
+		DATE_MILLISECONDS,
+		
+		DATE_MS = DATE_MILLISECONDS
+	};
 	
-	// Get the current time from the system.
-	struct tm* now = localtime(&t);
-	
-	date[0] = (now->tm_year + 1900);
-	date[1] = (now->tm_mon+1);
-	date[2] = (now->tm_mday);
-	date[3] = (now->tm_hour);
-	date[4] = (now->tm_min);
-	date[5] = (now->tm_sec);
-	date[6] = millisecs();
-	
-	// Delete the temporary time-object.
-	//delete now;
-	
-	return;
+	// Functions:
+	void getDate(Array<int> date)
+	{
+		// Local variable(s):
+		time_t t = time(0);
+		
+		// Get the current date/time from the system.
+		struct tm* now = localtime(&t);
+		
+		// Transfer the date/time information into the array:
+		date[DATE_YEAR] = (now->tm_year + 1900);
+		date[DATE_MONTH] = (now->tm_mon+1);
+		date[DATE_DAY] = (now->tm_mday);
+		date[DATE_HOUR] = (now->tm_hour);
+		date[DATE_MINUTE] = (now->tm_min);
+		date[DATE_SECOND] = (now->tm_sec);
+		date[DATE_MILLISECONDS] = 0; // millisecs();
+		
+		// Delete the temporary time-object. (Non-standard)
+		//delete now;
+		
+		return;
+	}
 }

@@ -3,9 +3,8 @@ Strict
 Public
 
 ' Preprocessor related:
-#MOJO_EMULATOR_FORCE_MOJO = False ' True
-
-#If BRL_GAMETARGET_IMPLEMENTED Or MOJO_EMULATOR_FORCE_MOJO
+#If (Not MOJO_EMULATOR_FORCE_ALTERNATIVE And BRL_GAMETARGET_IMPLEMENTED) Or MOJO_EMULATOR_FORCE_MOJO
+	' Standard graphical functionality.
 	Import mojo.graphics
 #Else
 	#MOJO_EMULATOR_IMPLEMENTED = True

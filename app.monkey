@@ -9,19 +9,22 @@ Public
 ' The 'EndApp' function still closes ungracefully, regardless of this flag.
 #MOJO_EMULATOR_AUTOEXIT = True
 
-#MOJO_EMULATOR_FORCE_MOJO = False ' True
-
-#If BRL_GAMETARGET_IMPLEMENTED Or MOJO_EMULATOR_FORCE_MOJO
+#If (Not MOJO_EMULATOR_FORCE_ALTERNATIVE And BRL_GAMETARGET_IMPLEMENTED) Or MOJO_EMULATOR_FORCE_MOJO
+	' Standard application functionality.
 	Import mojo.app
 #Else
 	#MOJO_EMULATOR_IMPLEMENTED = True
 	
 	#If MOJO_EMULATOR_IMPLEMENTED
+		' This acts as the standard implementation-flag for the 'App' class.
+		#MOJO_EMULATOR_APP_IMPLEMENTED = True
+		
 		' Imports:
 		Import time
 		
 		Import mojoemulator
 		Import external
+		Import keycodes
 		Import graphics
 		
 		' Global variable(s) (Public):
@@ -31,6 +34,7 @@ Public
 		Private
 		
 		Global MOJO_UPDATE_RATE:Int = -1
+		Global MOJO_UPDATE_RATE_DELAY_CACHE:= 0 ' 1000
 		
 		#If Not MOJO_EMULATOR_AUTOEXIT
 			Global MOJO_CLOSING:Bool = False
@@ -47,7 +51,13 @@ Public
 			Const Default_DeviceHeight:Int = 480
 			
 			' Constructor(s):
-			Method New(ShouldExecute:Bool=True)
+			Method New(ShouldExecute:Bool=True, InitializeUpTime:Bool=True)
+				' Check if we should initialize standard up-time functionality:
+				If (InitializeUpTime) Then
+					InitMillisecs()
+				Endif
+				
+				' Execute the main constructor.
 				OnCreate()
 				
 				If (ShouldExecute) Then
@@ -60,6 +70,8 @@ Public
 			End
 			
 			' Methods:
+			
+			' The 'MOJO_EMULATOR_SIMULATE_GC' feature is only directly supported through this routine.
 			Method Execute:Int()
 				Repeat
 					' Local variable(s):
@@ -70,6 +82,10 @@ Public
 					' Check for errors:
 					If (Rate = -1) Then Exit
 					
+					#If MOJO_EMULATOR_SIMULATE_GC
+						__RESERVED__CollectApplicationGarbage()
+					#End
+					
 					' Continually update this application.
 					OnUpdate()
 					
@@ -77,9 +93,8 @@ Public
 						If (MOJO_CLOSING) Then Exit
 					#End
 					
-					If (Rate > 0) Then
-						Delay(1000/UpdateRate())
-					Endif
+					' Return control to the system for now.
+					Delay(MOJO_UPDATE_RATE_DELAY_CACHE)
 				Forever
 				
 				#If Not MOJO_EMULATOR_AUTOEXIT
@@ -95,6 +110,7 @@ Public
 				Return 0
 			End
 			
+			'#Rem
 			Method OnRender:Int()
 				Return 0
 			End
@@ -102,6 +118,7 @@ Public
 			Method OnLoading:Int()
 				Return 0
 			End
+			'#End
 			
 			Method OnSuspend:Int()
 				Return 0
@@ -128,11 +145,29 @@ Public
 			Method OnResize:Int()
 				Return 0
 			End
+			
+			' Reserved / Other:
+			#If MOJO_EMULATOR_SIMULATE_GC
+				#If Not MOJO_EMULATOR_GC_COLLECT_IMPLEMENTED
+					#Error("Attempted to use garbage-collection functionality without native support.")
+				#End
+				
+				' Assuming experimental garbage collection functionality is provided,
+				' this will collect garbage generated from this object.
+				Method __RESERVED__CollectApplicationGarbage:Void()
+					' Attempt to apply garbage collection to
+					' this object, and its potential "children".
+					GarbageCollect(Self)
+					
+					Return
+				End
+			#End
 		End
 		
 		' Functions:
 		Function SetUpdateRate:Void(Input:Int)
 			MOJO_UPDATE_RATE = Input
+			MOJO_UPDATE_RATE_DELAY_CACHE = (1000/(MOJO_UPDATE_RATE))
 			
 			Return
 		End
