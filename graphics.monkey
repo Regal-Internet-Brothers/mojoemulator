@@ -70,11 +70,15 @@ Public
 			Public
 			
 			' Destructor(s):
-			Method Discard:Void()
-				Return
+			Method Discard:Int()
+				Return 0
 			End
 			
 			' Methods:
+			Method GrabImage:Image(X:Int, Y:Int, Width:Int, Height:Int, FrameCount:Int=1, Flags:Int=DefaultFlags)
+				Return New Image(Width/FrameCount, Height, FrameCount, Flags)
+			End
+			
 			Method Width:Int() ' Property
 				Return Self._Width
 			End
@@ -114,7 +118,6 @@ Public
 			End
 			
 			' Unsupported:
-			' Method GrabImage:Image(X:Int, Y:Int, Width:Int, Height:Int, nFrames:Int=1, Flags:Int=DefaultFlags)
 			' Method WritePixels:Void(pixels:Int[], x:Int, y:Int, width:Int, height:Int, offset:Int=0, pitch:Int=0)
 			
 			' Methods (Private):
@@ -165,7 +168,15 @@ Public
 		End
 		
 		' Functions:
-		Function LoadImage:Image(Path:String, FrameCount:Int, Flags:Int=Image.DefaultFlags)
+		Function LoadImage:Image(Path:String, FrameCount:Int=1, Flags:Int=Image.DefaultFlags)
+			#If CONFIG = "debug"
+				If (FrameCount <= 0) Then
+					DebugLog("Invalid 'FrameCount' specified.")
+					
+					DebugStop()
+				Endif
+			#End
+			
 			' Local variable(s):
 			Local D:= LoadImageDimensions(FixDataPath(Path))
 			
@@ -173,7 +184,7 @@ Public
 				' Local variable(s):
 				Local I:= New Image(FrameCount, Flags)
 				
-				I._Width = D[0]
+				I._Width = D[0] / FrameCount
 				I._Height = D[1]
 				
 				Return I
