@@ -46,11 +46,6 @@ Public
 			Public
 			
 			' Constructor(s) (Public):
-			' Nothing so far.
-			
-			' Constructor(s) (Private):
-			Private
-			
 			Method New(Flags:Int=Image.DefaultFlags)
 				Self._Flags = Flags
 			End
@@ -66,8 +61,6 @@ Public
 				Self._Frames = FrameCount
 				Self._Flags = Flags
 			End
-			
-			Public
 			
 			' Destructor(s):
 			Method Discard:Int()
