@@ -20,13 +20,19 @@ Public
 		' This acts as the standard implementation-flag for the 'App' class.
 		#MOJO_EMULATOR_APP_IMPLEMENTED = True
 		
-		' Imports:
-		Import time
+		' Imports (Public):
+		Import regal.time
 		
-		Import mojoemulator
+		Import mojoemulator ' regal.mojoemulator
 		Import external
 		Import keycodes
+		
+		' Import (Private):
+		Private
+		
 		Import graphics
+		
+		Public
 		
 		' Constant variable(s) (Public):
 		' Nothing so far.

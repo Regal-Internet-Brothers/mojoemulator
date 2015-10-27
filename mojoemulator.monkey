@@ -47,7 +47,7 @@ Public
 		Import monkey.lang
 		
 		' Standard date/time functionality.
-		Import time
+		Import regal.time
 		
 		' Imports (Monkey) (Internal):
 		

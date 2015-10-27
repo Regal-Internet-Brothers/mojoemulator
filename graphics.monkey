@@ -10,11 +10,17 @@ Public
 	#MOJO_EMULATOR_IMPLEMENTED = True
 	
 	#If MOJO_EMULATOR_IMPLEMENTED
-		' Imports:
-		Import imagedimensions
+		' Imports (Public):
+		Import regal.imagedimensions
 		
-		Import mojoemulator
+		Import mojoemulator ' regal.mojoemulator
+		
+		' Imports (Private):
+		Private
+		
 		Import app
+		
+		Public
 		
 		' Classes:
 		Class Image

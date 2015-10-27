@@ -63,7 +63,7 @@ Public
 	Import monkey.lang
 	
 	' Standard time-related functionality.
-	Import time
+	Import regal.time
 	
 	' Imports (Native):
 	#If MOJO_EMULATOR_GETDATE_IMPLEMENTED

@@ -21,7 +21,7 @@ Public
 		#MOJO_EMULATOR_ASYNCLOADERS_IMPLEMENTED = True
 		
 		' Imports:
-		Import mojoemulator
+		Import mojoemulator ' regal.mojoemulator
 		
 		' BRL:
 		Import brl.asyncevent
